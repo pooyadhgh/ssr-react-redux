@@ -11,9 +11,21 @@ dotenv.config({ path: '../.env' });
 const app = express();
 const port = process.env.SERVER_PORT || 3000;
 
+// ststic diretory
+app.use(express.static('public'));
+
 app.get('/', (req, res) => {
   const content = renderToString(<Home />);
-  res.send(content);
+  const html = `
+  <html>
+    <head></head>
+    <body>
+      <div id="root">${content}</div>
+      <script src="bundle.js"></script>
+    </body>
+  </html>
+  `;
+  res.send(html);
 });
 
 app.listen(port, () => console.log(`⚡️ Server is running on port: ${port}`));
