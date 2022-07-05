@@ -2,12 +2,12 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 
-import Routes from '../client/Routes';
+import App from '../client/App';
 
 const renderer = (req) => {
   const content = renderToString(
     <StaticRouter location={req.path} context={{}}>
-      <Routes />
+      <App />
     </StaticRouter>
   );
 
