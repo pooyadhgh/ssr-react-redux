@@ -1,14 +1,16 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-
+import { Provider } from 'react-redux';
 import App from '../client/App';
 
-const renderer = (req) => {
+const renderer = (req, store) => {
   const content = renderToString(
-    <StaticRouter location={req.path} context={{}}>
-      <App />
-    </StaticRouter>
+    <Provider store={store}>
+      <StaticRouter location={req.path} context={{}}>
+        <App />
+      </StaticRouter>
+    </Provider>
   );
 
   const html = `

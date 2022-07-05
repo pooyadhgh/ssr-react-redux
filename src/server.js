@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import renderer from './helpers/renderer';
+import createServerStore from './helpers/createServerStore';
 
 // .env config
 dotenv.config({ path: '../.env' });
@@ -12,7 +13,9 @@ const port = process.env.SERVER_PORT || 3000;
 app.use(express.static('public'));
 
 app.get('*', (req, res) => {
-  res.send(renderer(req));
+  const store = createServerStore();
+  // load data
+  res.send(renderer(req, store));
 });
 
 app.listen(port, () => console.log(`⚡️ Server is running on port: ${port}`));
