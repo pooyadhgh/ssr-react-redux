@@ -9,7 +9,7 @@ const webpackConfig = {
           presets: [
             'react',
             'stage-0',
-            ['env', { targets: { browsers: ['last 2 versions'] } }],
+            ['env', { targets: { browsers: ['last 2 Chrome versions'] } }],
           ],
         },
       },
