@@ -11,8 +11,8 @@ const port = process.env.SERVER_PORT || 3000;
 // ststic diretory
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  res.send(renderer());
+app.get('*', (req, res) => {
+  res.send(renderer(req));
 });
 
 app.listen(port, () => console.log(`⚡️ Server is running on port: ${port}`));
