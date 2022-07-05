@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import { matchRoutes } from 'react-router-config';
+import routes from './client/routes';
 import renderer from './helpers/renderer';
 import createServerStore from './helpers/createServerStore';
 
@@ -12,10 +14,20 @@ const port = process.env.SERVER_PORT || 3000;
 // ststic diretory
 app.use(express.static('public'));
 
-app.get('*', (req, res) => {
+// server-side rendering setup
+app.get('*', async (req, res) => {
   const store = createServerStore();
-  // load data
-  res.send(renderer(req, store));
+
+  const promises = matchRoutes(routes, req.path).map(({ route }) => {
+    return route.getServerSideProps ? route.getServerSideProps(store) : null;
+  });
+
+  try {
+    await Promise.all(promises);
+    res.send(renderer(req, store));
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.listen(port, () => console.log(`⚡️ Server is running on port: ${port}`));

@@ -1,4 +1,4 @@
-import { FETCH_USERS } from '../actions';
+import { FETCH_USERS } from '../actions/constants';
 
 const usersReducer = (state = [], action) => {
   switch (action.type) {

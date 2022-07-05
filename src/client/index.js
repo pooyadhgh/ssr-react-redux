@@ -1,19 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
-import App from './App';
+import routes from './routes';
 
 const store = createStore(reducers, {}, applyMiddleware(thunk));
 
 ReactDOM.hydrate(
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

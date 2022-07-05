@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-const BASE_URL = 'https://jsonplaceholder.typicode.com';
-export const FETCH_USERS = 'fetch_users';
+import { BASE_URL, FETCH_USERS } from './constants';
 
 export const fetchUsers = () => async (dispatch) => {
   const { data } = await axios.get(`${BASE_URL}/users`);
