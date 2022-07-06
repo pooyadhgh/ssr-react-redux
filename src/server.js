@@ -22,20 +22,16 @@ app.get('*', async (req, res) => {
     return route.getServerSideProps ? route.getServerSideProps(store) : null;
   });
 
-  try {
-    await Promise.all(promises);
+  await Promise.allSettled(promises);
 
-    const context = {};
-    const content = renderer(req, store, context);
+  const context = {};
+  const content = renderer(req, store, context);
 
-    if (context.notFound) {
-      res.status(404);
-    }
-
-    res.send(content);
-  } catch (error) {
-    console.log(error);
+  if (context.notFound) {
+    res.status(404);
   }
+
+  res.send(content);
 });
 
 app.listen(port, () => console.log(`⚡️ Server is running on port: ${port}`));
