@@ -24,7 +24,15 @@ app.get('*', async (req, res) => {
 
   try {
     await Promise.all(promises);
-    res.send(renderer(req, store));
+
+    const context = {};
+    const content = renderer(req, store, context);
+
+    if (context.notFound) {
+      res.status(404);
+    }
+
+    res.send(content);
   } catch (error) {
     console.log(error);
   }
