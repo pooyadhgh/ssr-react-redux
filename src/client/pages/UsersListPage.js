@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../actions';
 
@@ -14,6 +15,9 @@ const UsersPage = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Users List</title>
+      </Helmet>
       <h2>Users List</h2>
       <ul>
         {users.map((user) => (

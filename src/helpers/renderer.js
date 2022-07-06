@@ -3,6 +3,7 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { Provider } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import serializeJavascript from 'serialize-javascript';
 import routes from '../client/routes';
 
@@ -15,10 +16,17 @@ const renderer = (req, store, context) => {
     </Provider>
   );
 
+  const helmet = Helmet.renderStatic();
+
   const html = `
-    <html>
-      <head></head>
-      <body>
+  <!doctype html>
+    <html ${helmet.htmlAttributes.toString()}>
+      <head>
+        ${helmet.title.toString()}
+        ${helmet.meta.toString()}
+        ${helmet.link.toString()}
+      </head>
+      <body ${helmet.bodyAttributes.toString()}>
         <div id="root">${content}</div>
         <script>
           window.INITIAL_STATE = ${serializeJavascript(store.getState())}
