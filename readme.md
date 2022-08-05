@@ -20,6 +20,14 @@ An SSR Front-end application developed in React.js and an Express.js server with
 npm install
 ```
 
+### Env Variables
+
+Create a .env file in then root and add the following:
+
+```
+SERVER_PORT=3000
+```
+
 ### Run development mode
 
 ```
