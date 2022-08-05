@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { BASE_URL, FETCH_USERS } from './constants';
 
 export const fetchUsers = () => async (dispatch) => {
-  const { data } = await axios.get(`${BASE_URL}/users`);
+  const response = await fetch(`${BASE_URL}/users`);
+  const data = await response.json();
 
   dispatch({
     type: FETCH_USERS,
